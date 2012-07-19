@@ -1,10 +1,9 @@
 (function() {
 	var protectRollover = false
-	, id = id ? id : 1
+	, id = 1
 	, millisOld = 0
 	, counter = 0
-	, unique = function(id){
-		console.log("running unique");
+	, unique = function(){
 		protectRollover = false;
 		// 01 Jan 2010 is the selected epoch. Use
 		// 		Date.UTC(2010,0,1)
@@ -36,8 +35,8 @@
 	},
 
 	get = function(id, callback){
-		console.log("calling unique");
-		return unique(id);
+		id = id ? id : 1;
+		return unique();
 	};
 
 	module.exports = get;
