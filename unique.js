@@ -4,37 +4,39 @@
 	, millisOld = 0
 	, counter = 0
 	, unique = function(id){
+		console.log("running unique");
 		protectRollover = false;
 		// 01 Jan 2010 is the selected epoch. Use
 		// 		Date.UTC(2010,0,1)
 		// to get this number (1262304000000)
 		var millis = new Date().getTime() - 1262304000000;
-		if (this.millisOld == millis) {
-			this.counter++;
+		if (millisOld == millis) {
+			counter++;
 			// Rollover protection
-			if (this.counter == 255)
+			if (counter == 255)
 			{
-				this.protectRollover = true;
-				this.counter = 0;
+				protectRollover = true;
+				counter = 0;
 				setTimeout(function () {
-	  				unique(this.id);
+	  				unique(id);
 				}, 1);
 			}
 		} else {
-			this.millisOld = millis;
-			this.counter = 0;
+			millisOld = millis;
+			counter = 0;
 		}
-		if (this.protectRollover == false)
+		if (protectRollover == false)
 		{
 			millis = millis * Math.pow(2, 12);
-			var id2 = this.id * Math.pow(2, 8);
-			var uid = millis + id2 + this.counter;
+			var id2 = id * Math.pow(2, 8);
+			var uid = millis + id2 + counter;
 			
 			return uid;
 		}
 	},
 
 	get = function(id, callback){
+		console.log("calling unique");
 		return unique(id);
 	};
 
