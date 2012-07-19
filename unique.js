@@ -2,9 +2,8 @@
 	var protectRollover = false
 	, id = id ? id : 1
 	, millisOld = 0
-	, counter = 0;
-
-	unique = function(id,callback){
+	, counter = 0
+	, unique = function(id){
 		protectRollover = false;
 		// 01 Jan 2010 is the selected epoch. Use
 		// 		Date.UTC(2010,0,1)
@@ -30,9 +29,14 @@
 			millis = millis * Math.pow(2, 12);
 			var id2 = this.id * Math.pow(2, 8);
 			var uid = millis + id2 + this.counter;
-			if(callback) callback(uid);
 			
 			return uid;
 		}
-	}
+	},
+
+	get = function(id, callback){
+		return unique(id);
+	};
+
+	module.exports = get;
 })();
