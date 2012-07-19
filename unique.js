@@ -4,7 +4,7 @@
 	, millisOld = 0
 	, counter = 0;
 
-	get = function(){
+	unique = function(id,callback){
 		protectRollover = false;
 		// 01 Jan 2010 is the selected epoch. Use
 		// 		Date.UTC(2010,0,1)
@@ -18,7 +18,7 @@
 				this.protectRollover = true;
 				this.counter = 0;
 				setTimeout(function () {
-	  				getSync(this.id);
+	  				unique(this.id);
 				}, 1);
 			}
 		} else {
@@ -30,7 +30,9 @@
 			millis = millis * Math.pow(2, 12);
 			var id2 = this.id * Math.pow(2, 8);
 			var uid = millis + id2 + this.counter;
+			if(callback) callback(uid);
+			
 			return uid;
 		}
 	}
-})(id,callback);
+})();
